@@ -100,26 +100,38 @@ export default function Page() {
         const heroHeight = heroRef.current.offsetHeight;
         const heroOffset = heroRef.current.offsetTop;
         const parallaxEffect = Math.max(0, (scrollPosition - windowHeight) / 2);
-        const scale = Math.max(1, 1 + (scrollPosition - heroOffset) / (heroHeight * 5));
-        const opacity = Math.max(0, 1 - (scrollPosition - heroOffset) / (heroHeight / 2));
+        const scale = Math.max(
+          1,
+          1 + (scrollPosition - heroOffset) / (heroHeight * 5)
+        );
+        const opacity = Math.max(
+          0,
+          1 - (scrollPosition - heroOffset) / (heroHeight / 2)
+        );
 
         // Apply parallax effect, scale, and opacity to hero section
         heroRef.current.style.transform = `translateY(${parallaxEffect}px) scale(${scale})`;
         heroRef.current.style.opacity = `${opacity}`;
-        heroRef.current.style.transformOrigin = 'center center';
+        heroRef.current.style.transformOrigin = "center center";
       }
 
       // Animate sections on scroll
-      const animateSectionOnScroll = (ref: React.RefObject<HTMLDivElement>, delay: number, isKeySection: boolean) => {
+      const animateSectionOnScroll = (
+        ref: React.RefObject<HTMLDivElement>,
+        delay: number,
+        isKeySection: boolean
+      ) => {
         if (ref.current) {
           const rect = ref.current.getBoundingClientRect();
           const isVisible = rect.top < windowHeight && rect.bottom >= 0;
           if (isVisible) {
-            ref.current.style.opacity = '1';
+            ref.current.style.opacity = "1";
             if (isKeySection) {
-              ref.current.style.transform = 'translateY(0)';
+              ref.current.style.transform = "translateY(0)";
             }
-            ref.current.style.transition = `opacity 0.5s ease-out ${delay}s${isKeySection ? `, transform 0.5s ease-out ${delay}s` : ''}`;
+            ref.current.style.transition = `opacity 0.5s ease-out ${delay}s${
+              isKeySection ? `, transform 0.5s ease-out ${delay}s` : ""
+            }`;
           }
         }
       };
@@ -254,21 +266,23 @@ export default function Page() {
                   proven learning techniques to help you master any subject
                   faster and more effectively.
                 </p>
-                <div className='flex flex-col sm:flex-row gap-4'>
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button
-                  size="lg"
-                  className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105">
-                  Start Learning for Free
+                    size="lg"
+                    className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105"
+                  >
+                    Start Learning for Free
                     <ArrowRight />
                   </Button>
                   <Button
-                  size="lg"
-                  variant='outline'
-                  className='border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105'>
+                    size="lg"
+                    variant="outline"
+                    className="border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105"
+                  >
                     Learn More
                   </Button>
                 </div>
-                </div>
+              </div>
               <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
                 <div
                   className="relative w-full max-w-[400px] aspect-[4/3] perspective-1000 cursor-pointer group transition-transform duration-300 hover:scale-105"
@@ -314,43 +328,148 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Features section */}
-        <section id='features' ref={featuresRef} className='pt-16 md:pt-20 py-16 bg-gray-50 opacity-0 transform translate-y-10'>
-          <div className='container mx-auto px-4'>
-            <h2 className='font-bold text-3xl text-center md:text-4xl mb-10 md:mb-12'>
+        {/* How It Works Section */}
+        <section
+          id="features"
+          ref={featuresRef}
+          className="pt-16 md:pt-20 py-16 bg-gray-50 opacity-0 transform translate-y-10"
+        >
+          <div className="container mx-auto px-4">
+            <h2 className="font-bold text-3xl text-center md:text-4xl mb-10 md:mb-12">
               Why Choose FlashAI?
             </h2>
-            <div className='grid md:grid-cols-3 gap-8'>
-            <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
-            <Sparkles className='h-12 w-12 text-yellow-400 mb-4 mx-auto'/>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
+                <Sparkles className="h-12 w-12 text-yellow-400 mb-4 mx-auto" />
                 <h3 className="text-xl font-semibold mb-2 text-center">
                   AI-Powered Flashcards
                 </h3>
-                <p className='text-center text-gray-600'>
-                Our AI generates high-quality flashcards from your notes or
-                textbooks, saving you hours of manual work.
+                <p className="text-center text-gray-600">
+                  Our AI generates high-quality flashcards from your notes or
+                  textbooks, saving you hours of manual work.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
-              <Brain className='mx-auto h-12 w-12 text-pink-400 mb-4'/>
+                <Brain className="mx-auto h-12 w-12 text-pink-400 mb-4" />
                 <h3 className="text-xl font-semibold mb-2 text-center">
                   Adaptive Learning
                 </h3>
-                <p className='text-center text-gray-600'>
-                Our system adapts to your learning pace, focusing on areas
-                where you need the most improvement.
+                <p className="text-center text-gray-600">
+                  Our system adapts to your learning pace, focusing on areas
+                  where you need the most improvement.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
-              <Clock className='h-12 w-12 text-green-400 mb-4 mx-auto'/>
+                <Clock className="h-12 w-12 text-green-400 mb-4 mx-auto" />
                 <h3 className="text-xl font-semibold mb-2 text-center">
                   Spaced Repetition
                 </h3>
-                <p className='text-center text-gray-600'>
-                Optimize your study schedule with our scientifically-proven
-                spaced repetition algorithm.
+                <p className="text-center text-gray-600">
+                  Optimize your study schedule with our scientifically-proven
+                  spaced repetition algorithm.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section
+          id="pricing"
+          ref={pricingRef}
+          className="py-16 md:py-20 bg-gray-50 opacity-0 transform translate-y-10"
+        >
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
+              Choose Your Plan
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {["Basic", "Pro", "Master"].map((plan, index) => (
+                <div
+                  key={index}
+                  className="bg-white p-8 rounded-lg shadow-sm border border-gray-200 flex flex-col justify-between transform transition-all duration-200 hover:scale-105 hover:shadow-md"
+                >
+                  <div>
+                    <h3 className="text-2xl font-bold mb-4">{plan}</h3>
+                    <p className="text-4xl font-bold mb-6">
+                      {`${index === 0 ? "0" : index === 1 ? "9.99" : "20.99"}`}
+
+                      <span className="text-lg font-normal text-gray-600">
+                        /month
+                      </span>
+                    </p>
+                    <ul className="space-y-3 mb-6">
+                      {index === 0 && (
+                        <>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>100 AI-generated flashcards/month</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Basic spaced repetition</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>1 study subject</span>
+                          </li>
+                        </>
+                      )}
+                      {index === 1 && (
+                        <>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Unlimited AI-generated flashcards</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Advanced spaced repetition</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>5 study subjects</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Progress tracking</span>
+                          </li>
+                        </>
+                      )}
+                      {index === 2 && (
+                        <>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>All Pro features</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Unlimited study subjects</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>API access</span>
+                          </li>
+                          <li className="flex items-center">
+                            <Check className="h-5 w-5 text-green-500 mr-2" />
+                            <span>Dedicated support</span>
+                          </li>
+                        </>
+                      )}
+                    </ul>
+                  </div>
+                  <Button
+                    className={
+                      `w-full bg-black text-white hover:bg-gray-900 transition-colors duration-200`
+                    }
+                  >
+                    {index === 0
+                      ? "Get Started"
+                      : index === 1
+                      ? "Choose Pro"
+                      : "Choose Master"}
+                  </Button>
+                </div>
+              ))}
             </div>
           </div>
         </section>
