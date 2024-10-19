@@ -176,7 +176,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-white text-black">
       {/* Header section */}
-      <header className="bg-white border-b border-gray-200 text-black fixed w-full">
+      <header className="bg-white border-b border-gray-200 text-black fixed w-full z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">FlashAI</h1>
           <nav className="hidden md:flex space-x-4">
@@ -221,35 +221,113 @@ export default function Page() {
             <div className="container mx-auto px-4 py-2 flex flex-col space-y-2">
               <button
                 onClick={() => scrollToSection("features")}
-                className="text-gray-600 hover:text-black py-2 transition-colors duraction-200"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-200"
               >
                 Features
               </button>
               <button
                 onClick={() => scrollToSection("how-it-works")}
-                className="text-gray-600 hover:text-black py-2 transition-colors duraction-200"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-200"
               >
                 How It Works
               </button>
               <button
                 onClick={() => scrollToSection("pricing")}
-                className="text-gray-600 hover:text-black py-2 transition-colors duraction-200"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-200"
               >
                 Pricing
               </button>
               <Button
                 variant="outline"
-                className="text-black border-black hover:bg-gray-100 transition-colors duration-200"
+                className="text-black border-black hover:bg-gray-100 w-full transition-colors duration-200"
               >
-                Login
+                Log In
               </Button>
-              <Button className="bg-black text-white hover:bg-gray-900 transition-colors duration-200">
+              <Button className="bg-black text-white hover:bg-gray-900 w-full transition-colors duration-200">
                 Sign Up
               </Button>
             </div>
           </div>
         )}
       </header>
+
+      <main>
+        {/* Hero section */}
+        <section className="min-h-screen overflow-hidden">
+          <div
+            ref={heroRef}
+            className="min-h-screen flex items-center pt-16 md:pt-0 pb-16 md:pb-0 px-4 relative"
+          >
+            <div className="container mx-auto flex flex-col lg:flex-row items-center">
+              <div className="lg:w-1/2 lg:pr-16">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                  Making learning history.
+                </h2>
+                <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl">
+                  FlashAI combines the power of artificial intelligence with
+                  proven learning techniques to help you master any subject
+                  faster and more effectively.
+                </p>
+                <div className='flex flex-col sm:flex-row gap-4'>
+                  <Button
+                  size="lg"
+                  className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105">
+                  Start Learning for Free
+                    <ArrowRight />
+                  </Button>
+                  <Button
+                  size="lg"
+                  variant='outline'
+                  className='border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105'>
+                    Learn More
+                  </Button>
+                </div>
+                </div>
+              <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
+                <div
+                  className="relative w-full max-w-[400px] aspect-[4/3] perspective-1000 cursor-pointer group transition-transform duration-300 hover:scale-105"
+                  onClick={() => setIsFlipped(!isFlipped)}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-200 via-green-200 to-blue-200 transform rotate-3 rounded-2xl"></div>
+                  <div
+                    className={`absolute inset-0 bg-gray-50 rounded-2xl shadow-lg transition-all duration-500 ease-in-out transform-style-3d  ${
+                      isFlipped ? "rotate-y-180" : ""
+                    } group-hover:shadow-xl`}
+                  >
+                    <div
+                      className={`absolute inset-0 backface-hidden flex flex-col justify-center items-center p-4 transition-opacity duration-500 ${
+                        isFlipped ? "opacity-0" : "opacity-100"
+                      }`}
+                    >
+                      <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-4 text-center">
+                        {flashcards[currentFlashcardIndex].question}
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-500 text-center">
+                        Click to flip
+                      </p>
+                      <p className="text-xs md:text-sm font-semibold mt-2 text-blue-600">
+                        {flashcards[currentFlashcardIndex].subject}
+                      </p>
+                    </div>
+                    <div
+                      className={`absolute inset-0 backface-hidden flex flex-col justify-center items-center p-4 rotate-y-180 transition-opacity duration-500 ${
+                        isFlipped ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      <p className="text-sm md:text-lg text-center">
+                        {flashcards[currentFlashcardIndex].answer}
+                      </p>
+                      <p className="text-xs md:text-sm font-semibold mt-4 text-blue-600">
+                        {flashcards[currentFlashcardIndex].subject}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
