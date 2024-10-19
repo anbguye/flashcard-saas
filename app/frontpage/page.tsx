@@ -522,22 +522,23 @@ export default function Page() {
         </section>
 
         {/* FAQ Section */}
-        <section 
-        ref={faqRef}
-        className="py-16 md:py-20 bg-white opacity-0">
+        <section ref={faqRef} className="py-16 md:py-20 bg-white opacity-0">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
               Frequently Asked Questions
             </h2>
-            <div className='max-w-3xl mx-auto'>
+            <div className="max-w-3xl mx-auto">
               {faqItems.map((item, index) => (
-                <div key={index} className='mb-4'>
+                <div key={index} className="mb-4">
                   <button
-                  className='flex justify-between items-center w-full text-left p-4 bg-gray-50 rounded-lg focus:outline-none transition-colors duration-200 hover:bg-gray-100'
-                  onClick={() => toggleAccordian(index)}>
-                    <span className='font-semibold'>{item.question}</span>
+                    className="flex justify-between items-center w-full text-left p-4 bg-gray-50 rounded-lg focus:outline-none transition-colors duration-200 hover:bg-gray-100"
+                    onClick={() => toggleAccordian(index)}
+                  >
+                    <span className="font-semibold">{item.question}</span>
                     <ChevronDown
-                      className={`transform transition-transform duration-200 ${activeAccordion === index ? "rotate-180" : ""}`}
+                      className={`transform transition-transform duration-200 ${
+                        activeAccordion === index ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
                   {activeAccordion === index && (
@@ -552,29 +553,131 @@ export default function Page() {
         </section>
 
         {/* CTA Section */}
-        <section ref={ctaRef} className='bg-black py-16 md:py-20 text-white text-center opacity-0'>
-          <div className='container mx-auto px-4'>
-            <h2 className='text-3xl md:text-4xl font-bold mb-4'>
+        <section
+          ref={ctaRef}
+          className="bg-black py-16 md:py-20 text-white text-center opacity-0"
+        >
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Elevate Your Learning?
             </h2>
-            <p className='text-lg md:text-xl mb-8 max-w-2xl mx-auto'>
-              Join thousands of students and researchers who are already 
+            <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+              Join thousands of students and researchers who are already
               experiencing the power of AI-assisted learning.
             </p>
-            <form className='max-w-md mx-auto flex flex-col sm:flex-row gap-4'>
-              <Input 
+            <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+              <Input
                 type="email"
-                placeholder='Enter your email'
-                className='bg-white text-gray-900 flex-grow'
+                placeholder="Enter your email"
+                className="bg-white text-gray-900 flex-grow"
               />
-              <Button size='lg' className='bg-white text-black hover:bg-gray-100 w-full sm:w-auto transform transition-all duration-200 hover:scale-105'>
+              <Button
+                size="lg"
+                className="bg-white text-black hover:bg-gray-100 w-full sm:w-auto transform transition-all duration-200 hover:scale-105"
+              >
                 Get Started
               </Button>
             </form>
           </div>
         </section>
-
       </main>
+
+      {/* Footer */}
+      <footer className="py-12 bg-gray-50 text-black">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h4 className="text-lg font-semibold mb-4">FlashAI</h4>
+              <p>Empowering learners with AI-driven study tools.</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Product</h4>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => scrollToSection("features")}
+                    className="hover:text-gray-600 transition-colors duration-200"
+                  >
+                    Features
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="hover:text-gray-600 transition-colors duration-200"
+                    onClick={() => scrollToSection("pricing")}
+                  >
+                    Pricing
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="hover:text-gray-600 transition-colors duration-200"
+                    onClick={() => scrollToSection("faq")}
+                  >
+                    FAQ
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Company</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-gray-600 transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-gray-600 transition-colors"
+                  >
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-gray-600 transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-gray-600 transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-gray-600 transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <p className="text-center border-gray-200 border-t pt-8 mt-8">
+              &copy; {new Date().getFullYear()} FlashAI. All
+              rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
