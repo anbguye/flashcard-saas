@@ -375,7 +375,11 @@ export default function Page() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" ref={howItWorksRef} className="py-16 md:py-20 bg-white opacity-0 transform translate-y-10">
+        <section
+          id="how-it-works"
+          ref={howItWorksRef}
+          className="py-16 md:py-20 bg-white opacity-0 transform translate-y-10"
+        >
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
               How FlashAI Works
@@ -424,7 +428,7 @@ export default function Page() {
           ref={pricingRef}
           className="py-16 md:py-20 bg-gray-50 opacity-0 transform translate-y-10"
         >
-          <div className="container mx-auto px-4">
+          <div className=" container mx-auto px-4 ">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
               Choose Your Plan
             </h2>
@@ -437,7 +441,7 @@ export default function Page() {
                   <div>
                     <h3 className="text-2xl font-bold mb-4">{plan}</h3>
                     <p className="text-4xl font-bold mb-6">
-                      {`${index === 0 ? "0" : index === 1 ? "9.99" : "20.99"}`}
+                      {`${index === 0 ? "0" : index === 1 ? "9.99" : "19.99"}`}
 
                       <span className="text-lg font-normal text-gray-600">
                         /month
@@ -511,6 +515,36 @@ export default function Page() {
                       ? "Choose Pro"
                       : "Choose Master"}
                   </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section 
+        ref={faqRef}
+        className="py-16 md:py-20 bg-white opacity-0">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
+              Frequently Asked Questions
+            </h2>
+            <div className='max-w-3xl mx-auto'>
+              {faqItems.map((item, index) => (
+                <div key={index} className='mb-4'>
+                  <button
+                  className='flex justify-between items-center w-full text-left p-4 bg-gray-50 rounded-lg focus:outline-none transition-colors duration-200 hover:bg-gray-100'
+                  onClick={() => toggleAccordian(index)}>
+                    <span className='font-semibold'>{item.question}</span>
+                    <ChevronDown
+                      className={`transform transition-transform duration-200 ${activeAccordion === index ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {activeAccordion === index && (
+                    <div className="p-4 bg-white border border-gray-100 rounded-b-lg">
+                      <p>{item.answer}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
