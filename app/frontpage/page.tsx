@@ -9,6 +9,7 @@ import {
   Clock,
   ArrowRight,
   Menu,
+  Upload,
   Zap,
   Glasses,
   Check,
@@ -250,7 +251,7 @@ export default function Page() {
       </header>
 
       <main>
-        {/* Hero section */}
+        {/* Hero page */}
         <section className="min-h-screen overflow-hidden">
           <div
             ref={heroRef}
@@ -328,7 +329,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* Features Section */}
         <section
           id="features"
           ref={featuresRef}
@@ -367,6 +368,50 @@ export default function Page() {
                 <p className="text-center text-gray-600">
                   Optimize your study schedule with our scientifically-proven
                   spaced repetition algorithm.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" ref={howItWorksRef} className="py-16 md:py-20 bg-white opacity-0 transform translate-y-10">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">
+              How FlashAI Works
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center transform transition-all duration-200 hover:scale-105">
+                <div className="bg-gray-100 rounded-full p-6 mb-4">
+                  <Upload className="h-12 w-12 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  1. Upload Your Content
+                </h3>
+                <p className="text-gray-600 text-center">
+                  Import your notes, textbooks, or study materials into FlashAI.
+                </p>
+              </div>
+              <div className="flex flex-col items-center transform transition-all duration-200 hover:scale-105">
+                <div className="bg-gray-100 rounded-full p-6 mb-4">
+                  <Zap className="h-12 w-12 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  2. AI Generation
+                </h3>
+                <p className="text-gray-600 text-center">
+                  Our AI analyzes your content and creates optimized flashcards.
+                </p>
+              </div>
+              <div className="flex flex-col items-center transform transition-all duration-200 hover:scale-105">
+                <div className="bg-gray-100 rounded-full p-6 mb-4">
+                  <Glasses className="h-12 w-12 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  3. Start Learning
+                </h3>
+                <p className="text-gray-600 text-center">
+                  Review your AI-generated flashcards and track your progress.
                 </p>
               </div>
             </div>
@@ -458,9 +503,7 @@ export default function Page() {
                     </ul>
                   </div>
                   <Button
-                    className={
-                      `w-full bg-black text-white hover:bg-gray-900 transition-colors duration-200`
-                    }
+                    className={`w-full bg-black text-white hover:bg-gray-900 transition-colors duration-200`}
                   >
                     {index === 0
                       ? "Get Started"
