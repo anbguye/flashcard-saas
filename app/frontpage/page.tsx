@@ -90,50 +90,36 @@ export default function Page() {
       setCurrentFlashcardIndex((prev) => (prev + 1) % flashcards.length);
     }, 10000);
 
-    // Clear intervals on component unmount
+    // Parallax effect and section animations on scroll
     const handleScroll = () => {
-      // Get scroll position and window height
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      // Parallax effect on hero section
       if (heroRef.current) {
-        // Calculate hero section height, offset, parallax effect, scale, and opacity
+        // Parallax effect on hero section
         const heroHeight = heroRef.current.offsetHeight;
         const heroOffset = heroRef.current.offsetTop;
         const parallaxEffect = Math.max(0, (scrollPosition - windowHeight) / 2);
-        const scale = Math.max(
-          1,
-          1 + ((scrollPosition - heroOffset) / heroHeight) * 5
-        );
-        const opacity = Math.max(
-          0,
-          1 - ((scrollPosition - heroOffset) / heroHeight) * 2
-        );
+        const scale = Math.max(1, 1 + (scrollPosition - heroOffset) / (heroHeight * 5));
+        const opacity = Math.max(0, 1 - (scrollPosition - heroOffset) / (heroHeight / 2));
 
         // Apply parallax effect, scale, and opacity to hero section
         heroRef.current.style.transform = `translateY(${parallaxEffect}px) scale(${scale})`;
         heroRef.current.style.opacity = `${opacity}`;
-        heroRef.current.style.transformOrigin = "center center";
+        heroRef.current.style.transformOrigin = 'center center';
       }
 
       // Animate sections on scroll
-      const animateSectionOnScroll = (
-        ref: React.RefObject<HTMLDivElement>,
-        delay: number,
-        isKeySection: boolean
-      ) => {
+      const animateSectionOnScroll = (ref: React.RefObject<HTMLDivElement>, delay: number, isKeySection: boolean) => {
         if (ref.current) {
           const rect = ref.current.getBoundingClientRect();
           const isVisible = rect.top < windowHeight && rect.bottom >= 0;
           if (isVisible) {
-            ref.current.style.opacity = "1";
+            ref.current.style.opacity = '1';
             if (isKeySection) {
-              ref.current.style.transform = "translateY(0)";
+              ref.current.style.transform = 'translateY(0)';
             }
-            ref.current.style.transition = `opacity 0.5s ease-out ${delay}s${
-              isKeySection ? `, transform 0.5s ease-out ${delay}s` : ""
-            }`;
+            ref.current.style.transition = `opacity 0.5s ease-out ${delay}s${isKeySection ? `, transform 0.5s ease-out ${delay}s` : ''}`;
           }
         }
       };
@@ -323,6 +309,47 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features section */}
+        <section id='features' ref={featuresRef} className='pt-16 md:pt-20 py-16 bg-gray-50 opacity-0 transform translate-y-10'>
+          <div className='container mx-auto px-4'>
+            <h2 className='font-bold text-3xl text-center md:text-4xl mb-10 md:mb-12'>
+              Why Choose FlashAI?
+            </h2>
+            <div className='grid md:grid-cols-3 gap-8'>
+            <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
+            <Sparkles className='h-12 w-12 text-yellow-400 mb-4 mx-auto'/>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  AI-Powered Flashcards
+                </h3>
+                <p className='text-center text-gray-600'>
+                Our AI generates high-quality flashcards from your notes or
+                textbooks, saving you hours of manual work.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
+              <Brain className='mx-auto h-12 w-12 text-pink-400 mb-4'/>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  Adaptive Learning
+                </h3>
+                <p className='text-center text-gray-600'>
+                Our system adapts to your learning pace, focusing on areas
+                where you need the most improvement.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm transform transition-all duration-200 hover:scale-105 hover:shadow-md">
+              <Clock className='h-12 w-12 text-green-400 mb-4 mx-auto'/>
+                <h3 className="text-xl font-semibold mb-2 text-center">
+                  Spaced Repetition
+                </h3>
+                <p className='text-center text-gray-600'>
+                Optimize your study schedule with our scientifically-proven
+                spaced repetition algorithm.
+                </p>
               </div>
             </div>
           </div>
