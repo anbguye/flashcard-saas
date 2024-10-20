@@ -262,7 +262,7 @@ export default function FrontPage() {
             <div className="container mx-auto flex flex-col lg:flex-row items-center">
               <div className="lg:w-1/2 lg:pr-16">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                  Making learning history.
+                  Making learning easy.
                 </h2>
                 <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl">
                   FlashAI combines the power of artificial intelligence with
