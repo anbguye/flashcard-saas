@@ -82,6 +82,7 @@ export default function FrontPage() {
   const handlers = useSwipeable({
     onSwipedLeft: nextCard,
     onSwipedRight: prevCard,
+    preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
 
@@ -625,28 +626,28 @@ export default function FrontPage() {
               <h4 className="text-lg font-semibold mb-4">Product</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link
-                    href="#"
+                  <button
+                    onClick={() => scrollToSection("features")}
                     className="hover:text-gray-600 transition-colors duration-200"
                   >
                     Features
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link
-                    href="#"
+                  <button
+                    onClick={() => scrollToSection("pricing")}
                     className="hover:text-gray-600 transition-colors duration-200"
                   >
                     Pricing
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link
-                    href="#"
+                  <button
+                    onClick={() => scrollToSection("faq")}
                     className="hover:text-gray-600 transition-colors duration-200"
                   >
                     FAQ
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
