@@ -82,7 +82,6 @@ export default function FrontPage() {
   const handlers = useSwipeable({
     onSwipedLeft: nextCard,
     onSwipedRight: prevCard,
-    preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
 
