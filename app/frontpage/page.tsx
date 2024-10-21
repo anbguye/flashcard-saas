@@ -19,7 +19,6 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  X,
 } from "lucide-react";
 import Link from "next/link";
 
