@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogDescription, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { useSwipeable } from "react-swipeable";
 import {
   Sparkles,
@@ -17,6 +19,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -24,6 +27,8 @@ export default function FrontPage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSignUpMenuOpen, setIsSignUpMenuOpen] = useState(false);
+  const [isLearnMoreMenuOpen, setIsLearnMoreMenuOpen] = useState(false);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -156,6 +161,21 @@ export default function FrontPage() {
     setActiveAccordion(activeAccordion === index ? null : index);
   };
 
+  const handleIsSignUpMenuOpen = () => {
+    setIsSignUpMenuOpen(true);
+  }
+
+  const handleIsLearnMoreMenuOpen = () => {
+    setIsLearnMoreMenuOpen(true);
+  }
+
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // placeholder for sign up logic, probably sending to db in future.
+    console.log("Sign up form submitted");
+    setIsSignUpMenuOpen(false);
+  }
+
   const faqItems = [
     {
       question: "How does FlashAI generate flashcards?",
@@ -271,6 +291,7 @@ export default function FrontPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
+                    onClick={handleIsSignUpMenuOpen}
                     size="lg"
                     className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105"
                   >
@@ -278,11 +299,12 @@ export default function FrontPage() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   <Button
+                    onClick={handleIsLearnMoreMenuOpen}
                     size="lg"
                     variant="outline"
                     className="border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105"
                   >
-                    Watch Demo
+                    Learn More
                   </Button>
                 </div>
               </div>
@@ -614,6 +636,102 @@ export default function FrontPage() {
           </div>
         </section>
       </main>
+
+      {/* Learn More Modal */}
+      <Dialog open={isLearnMoreMenuOpen} onOpenChange={setIsLearnMoreMenuOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Learn More About FlashAI</DialogTitle>
+            <DialogDescription>
+              Discover how FlashAI can revolutionize your learning experience.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-sm text-gray-500">
+              FlashAI uses advanced artificial intelligence to create
+              personalized flashcards tailored to your learning style and needs.
+              Our spaced repetition algorithm ensures you review information at
+              optimal intervals for maximum retention.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-center">
+                <Check className="h-4 w-5 text-green-500 mr-2" />
+                <span>AI-powered flashcard generation</span>
+              </li>
+              <li className="flex items-center">
+                <Check className="h-4 w-5 text-green-500 mr-2" />
+                <span>Adaptive learning paths</span>
+              </li>
+              <li className="flex items-center">
+                <Check className="h-4 w-5 text-green-500 mr-2" />
+                <span>Progress tracking and analytics</span>
+              </li>
+            </ul>
+          </div>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="secondary"
+              className="hover:bg-gray-200 transition-colors duration-200"
+            >
+              Close
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
+
+      {/* Sign Up Modal */}
+
+      <Dialog open={isSignUpMenuOpen} onOpenChange={setIsSignUpMenuOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle> Sign Up for FlashAI</DialogTitle>
+            <DialogDescription>
+              Create your account to start learning with AI-powered flashcards.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSignUp}>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Name
+                </Label>
+                <Input id="name" className="col-span-3" required />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="email" className="text-right">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  className="col-span-3"
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="password" className="text-right">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  className="col-span-3"
+                  required
+                />
+              </div>
+            </div>
+            <div className='flex justify-end gap-4'>
+              <DialogClose asChild>
+                <Button type='button' variant='secondary'>
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type='submit'>Sign Up</Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <footer className="bg-gray-50 text-black py-12">
         <div className="container mx-auto px-4">
