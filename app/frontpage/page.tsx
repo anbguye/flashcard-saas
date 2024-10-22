@@ -21,6 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
+import { SignInButton, SignUpButton, useUser } from "@clerk/clerk-react";
 
 export default function FrontPage() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -35,6 +36,7 @@ export default function FrontPage() {
   const pricingRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const { isSignedIn, user } = useUser();
 
   const flashcards = [
     {
@@ -218,15 +220,29 @@ export default function FrontPage() {
             >
               Pricing
             </button>
-            <Button
-              variant="outline"
-              className="text-black border-black hover:bg-gray-100 transition-colors duration-200"
-            >
-              Log In
-            </Button>
-            <Button className="bg-black text-white hover:bg-gray-900 transition-colors duration-200">
-              Sign Up
-            </Button>
+            {!isSignedIn ? (
+              <>
+                <SignInButton mode="modal">
+                  <Button
+                    variant="outline"
+                    className="text-black border-black hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    Log In
+                  </Button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <Button className="bg-black text-white hover:gray-900 transition-colors duration-200">
+                    Sign Up
+                  </Button>
+                </SignUpButton>
+              </>
+            ) : (
+              <Link href="/dashboard">
+                <Button className="bg-black text-white hover:bg-gray-900 transition-colors duration-200">
+                  Dashboard
+                </Button>
+              </Link>
+            )}
           </nav>
           <Button
             variant="ghost"
@@ -720,13 +736,13 @@ export default function FrontPage() {
                 />
               </div>
             </div>
-            <div className='flex justify-end gap-4'>
+            <div className="flex justify-end gap-4">
               <DialogClose asChild>
-                <Button type='button' variant='secondary'>
+                <Button type="button" variant="secondary">
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type='submit'>Sign Up</Button>
+              <Button type="submit">Sign Up</Button>
             </div>
           </form>
         </DialogContent>
