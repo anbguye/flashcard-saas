@@ -680,6 +680,7 @@ export default function FrontPage() {
                 type="email"
                 placeholder="Enter your email"
                 className="bg-white text-gray-900 flex-grow"
+                required
               />
               <Button
                 size="lg"
