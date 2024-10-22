@@ -21,7 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-import { SignInButton, SignUpButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, SignUpButton, useUser, SignOutButton } from "@clerk/clerk-react";
 
 export default function FrontPage() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -36,7 +36,7 @@ export default function FrontPage() {
   const pricingRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
 
   const flashcards = [
     {
@@ -162,14 +162,6 @@ export default function FrontPage() {
     setActiveAccordion(activeAccordion === index ? null : index);
   };
 
-  const handleIsSignUpMenuOpen = () => {
-    setIsSignUpMenuOpen(true);
-  }
-
-  const handleIsLearnMoreMenuOpen = () => {
-    setIsLearnMoreMenuOpen(true);
-  }
-
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // placeholder for sign up logic, probably sending to db in future.
@@ -237,11 +229,21 @@ export default function FrontPage() {
                 </SignUpButton>
               </>
             ) : (
-              <Link href="/dashboard">
-                <Button className="bg-black text-white hover:bg-gray-900 transition-colors duration-200">
-                  Dashboard
-                </Button>
-              </Link>
+              <>
+                <Link href="/dashboard">
+                  <Button className="bg-black text-white hover:bg-gray-900 transition-colors duration-200">
+                    Dashboard
+                  </Button>
+                </Link>
+                <SignOutButton>
+                  <Button
+                    variant="outline"
+                    className="text-black border-black hover:bg-gray-100 transition colors- duration-200"
+                  >
+                    Sign Out
+                  </Button>
+                </SignOutButton>
+              </>
             )}
           </nav>
           <Button
@@ -273,15 +275,39 @@ export default function FrontPage() {
               >
                 Pricing
               </button>
-              <Button
-                variant="outline"
-                className="text-black border-black hover:bg-gray-100 w-full transition-colors duration-200"
-              >
-                Log In
-              </Button>
-              <Button className="bg-black text-white hover:bg-gray-900 w-full transition-colors duration-200">
-                Sign Up
-              </Button>
+              {!isSignedIn ? (
+                <>
+                  <SignInButton mode="modal">
+                    <Button
+                      variant="outline"
+                      className="text-black border-black hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      Log In
+                    </Button>
+                  </SignInButton>
+                  <SignUpButton mode="modal">
+                    <Button className="bg-black text-white hover:gray-900 transition-colors duration-200">
+                      Sign Up
+                    </Button>
+                  </SignUpButton>
+                </>
+              ) : (
+                <>
+                  <Link href="/dashboard">
+                    <Button className="w-full bg-black text-white hover:bg-gray-900 transition-colors duration-200">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <SignOutButton>
+                    <Button
+                      variant="outline"
+                      className="w-full text-black border-black hover:bg-gray-100 transition colors- duration-200"
+                    >
+                      Sign Out
+                    </Button>
+                  </SignOutButton>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -305,22 +331,36 @@ export default function FrontPage() {
                   faster and more effectively.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    onClick={handleIsSignUpMenuOpen}
-                    size="lg"
-                    className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105"
-                  >
-                    Start Learning for Free
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                  <Button
-                    onClick={handleIsLearnMoreMenuOpen}
-                    size="lg"
-                    variant="outline"
-                    className="border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105"
-                  >
-                    Learn More
-                  </Button>
+                  {!isSignedIn ? (
+                    <>
+                      <SignUpButton mode="modal">
+                        <Button
+                          size="lg"
+                          className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105"
+                        >
+                          Start Learning for Free
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </SignUpButton>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        onClick={() => scrollToSection("how-it-works")}
+                        className="border-black text-black hover:bg-gray-100 transform transition-all duration-200 hover:scale-105"
+                      >
+                        Learn More
+                      </Button>
+                    </>
+                  ) : (
+                    <Link href="/dashboard">
+                      <Button
+                        size="lg"
+                        className="bg-black text-white hover:bg-gray-900 transform transition-all duration-200 hover:scale-105"
+                      >
+                        Go to Dashboard
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
