@@ -3,7 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogDescription, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogDescription,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { useSwipeable } from "react-swipeable";
 import {
@@ -21,7 +28,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-import { SignInButton, SignUpButton, useUser, SignOutButton } from "@clerk/clerk-react";
+import {
+  SignInButton,
+  SignUpButton,
+  useUser,
+  SignOutButton,
+} from "@clerk/clerk-react";
 
 export default function FrontPage() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -37,6 +49,7 @@ export default function FrontPage() {
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const { isSignedIn } = useUser();
+  const [email, setEmail] = useState("");
 
   const flashcards = [
     {
@@ -167,6 +180,14 @@ export default function FrontPage() {
     // placeholder for sign up logic, probably sending to db in future.
     console.log("Sign up form submitted");
     setIsSignUpMenuOpen(false);
+  };
+
+  const handleEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // Placeholder for email submission logic
+    console.log('Email submitted:', email)
+    setEmail("")
   }
 
   const faqItems = [
@@ -675,20 +696,45 @@ export default function FrontPage() {
               Join thousands of students and researchers who are already
               experiencing the power of AI-assisted learning.
             </p>
-            <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-white text-gray-900 flex-grow"
-                required
-              />
+            {!isSignedIn ? (
+              <div>
+                <SignUpButton mode="modal">
+                  <Button
+                    size="lg"
+                    className="bg-white text-black hover:bg-gray-200 hover:scale-105 transform transition-all duration-200 w-full sm:w-auto"
+                  >
+                    Get Started for Free
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </SignUpButton>
+                <p className="text-sm p-2">Or</p>
+                <form
+                  onSubmit={handleEmailSubmit}
+                  className="flex flex-col sm:flex-row gap-2 justify-center"
+                >
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="bg-white text-black sm:w-auto md:w-96"
+                  />
+                  <Button type='submit' variant='outline' size='lg' className='text-white hover:bg-white hover:text-black bg-transparent border-white'>
+                    Get Updates
+                  </Button>
+                </form>
+              </div>
+            ) : (
               <Button
+                variant="outline"
                 size="lg"
-                className="bg-white text-black hover:bg-gray-100 w-full sm:w-auto transform transition-all duration-200 hover:scale-105"
+                className="text-black hover:bg-gray-200 transform hover:scale-105 transition-all duration-200"
               >
-                Get Started
+                Go to Dashboard
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </form>
+            )}
           </div>
         </section>
       </main>
