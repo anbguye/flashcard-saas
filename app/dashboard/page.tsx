@@ -12,12 +12,23 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart, Clock, Zap, Plus } from "lucide-react";
+import { BarChart, Clock, Zap, Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Dashboard() {
   const { user } = useUser();
   const [progress] = useState(0);
+  const router = useRouter();
+  const [isQuickCreateOpen, setIsQuickCreateOpen] = useState(false);
 
   // Dummy data for flashcard sets
   const flashcardSets = [
@@ -25,6 +36,10 @@ export default function Dashboard() {
     { id: 2, title: "World History", cardCount: 30, progress: 40 },
     { id: 3, title: "Mathematics", cardCount: 25, progress: 90 },
   ];
+
+  const handleCreateNew = () => {
+    router.push('/flashcards');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
@@ -38,9 +53,38 @@ export default function Dashboard() {
               Here&apos;s an overview of your learning progress.
             </p>
           </div>
-          <Button className="bg-black text-white hover:bg-gray-800">
-            <Plus className="mr-2 h-4 w-4" /> Create New Set
-          </Button>
+          <Dialog open={isQuickCreateOpen} onOpenChange={setIsQuickCreateOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-black text-white hover:bg-gray-800">
+                <Plus className="mr-2 h-4 w-4" /> Create New Set
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Create New Flashcard Set</DialogTitle>
+                <DialogDescription>
+                  Choose how you want to create your flashcard set
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <Button
+                  onClick={handleCreateNew}
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  AI-Powered Generation
+                </Button>
+                <Button
+                  onClick={handleCreateNew}
+                  variant="outline"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Plus className="h-4 w-4" />
+                  Create Manually
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </header>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
